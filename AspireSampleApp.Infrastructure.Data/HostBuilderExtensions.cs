@@ -1,3 +1,6 @@
+using AspireSampleApp.Domain;
+using AspireSampleApp.Domain.Abstractions;
+using AspireSampleApp.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +13,13 @@ public static class HostBuilderExtensions
 {
     extension(IHostApplicationBuilder builder)
     {
+        public void AddProductInfrastructure()
+        {
+            builder.Services.AddProductServices();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.AddProductDatabase();
+        }
+
         public void AddProductDatabase(Action<NpgsqlDbContextOptionsBuilder>? optionsAction = null)
         {
             builder.Services.AddDbContext<ProductContext>(options =>
