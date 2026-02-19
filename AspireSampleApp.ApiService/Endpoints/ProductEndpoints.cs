@@ -1,6 +1,7 @@
 using AspireSampleApp.Domain.Abstractions;
 using AspireSampleApp.Domain.DTOs;
 
+
 namespace AspireSampleApp.ApiService.Endpoints;
 
 public static class ProductEndpoints
