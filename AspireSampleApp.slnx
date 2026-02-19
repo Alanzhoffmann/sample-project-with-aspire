@@ -4,6 +4,7 @@
   <Project Path="AspireSampleApp.Clients/AspireSampleApp.Clients.csproj" />
   <Project Path="AspireSampleApp.Domain/AspireSampleApp.Domain.csproj" />
   <Project Path="AspireSampleApp.Infrastructure.Data/AspireSampleApp.Infrastructure.Data.csproj" />
+  <Project Path="AspireSampleApp.Infrastructure.Migrations/AspireSampleApp.Infrastructure.Migrations.csproj" />
   <Project Path="AspireSampleApp.ServiceDefaults/AspireSampleApp.ServiceDefaults.csproj" />
   <Project Path="AspireSampleApp.Web/AspireSampleApp.Web.csproj" />
 </Solution>

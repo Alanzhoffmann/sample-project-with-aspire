@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspireSampleApp.ApiService\AspireSampleApp.ApiService.csproj" />
-    <ProjectReference Include="..\AspireSampleApp.Web\AspireSampleApp.Web.csproj" />
+    <ProjectReference Include="../AspireSampleApp.Infrastructure.Migrations/AspireSampleApp.Infrastructure.Migrations.csproj" />
+    <ProjectReference Include="../AspireSampleApp.ApiService/AspireSampleApp.ApiService.csproj" />
+    <ProjectReference Include="../AspireSampleApp.Web/AspireSampleApp.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
