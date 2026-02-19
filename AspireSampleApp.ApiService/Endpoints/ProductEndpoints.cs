@@ -1,6 +1,6 @@
 using AspireSampleApp.Domain.Abstractions;
 using AspireSampleApp.Domain.DTOs;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace AspireSampleApp.ApiService.Endpoints;
 
@@ -19,15 +19,19 @@ public static class ProductEndpoints
         }
     }
 
-    private static async Task<IResult> GetProductsAsync(IProductService productService, CancellationToken cancellationToken)
+    private static async Task<IResult> GetProductsAsync([FromServices] IProductService productService, CancellationToken cancellationToken)
     {
         var products = await productService.GetProductsAsync(cancellationToken);
-        return Results.Ok(products);
+        return TypedResults.Ok(products);
     }
 
-    private static async Task<IResult> GetProductByIdAsync(Guid id, IProductService productService, CancellationToken cancellationToken)
+    private static async Task<IResult> GetProductByIdAsync(
+        [FromRoute] Guid id,
+        [FromServices] IProductService productService,
+        CancellationToken cancellationToken
+    )
     {
         var product = await productService.GetProductAsync(id, cancellationToken);
-        return product is not null ? Results.Ok(product) : Results.NotFound();
+        return product is not null ? TypedResults.Ok(product) : TypedResults.NotFound();
     }
 }
