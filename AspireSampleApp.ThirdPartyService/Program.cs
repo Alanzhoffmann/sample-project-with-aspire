@@ -25,7 +25,7 @@ productsApi
         "/{id:guid}",
         Results<Ok<Product>, NotFound> (Guid id) =>
         {
-            if (Random.Shared.Next(2) > 1)
+            if (Random.Shared.Next(4) > 0)
             {
                 return TypedResults.Ok(new Product(id, Random.Shared.Next(1, 100), Random.Shared.Next(1, 100)));
             }
