@@ -2,7 +2,7 @@ namespace AspireSampleApp.Domain.Entities;
 
 public class Product
 {
-    public Product(Guid id, string name, string description)
+    public Product(Guid id, string name, string? description = null)
     {
         Id = id;
         Name = name;
@@ -11,5 +11,5 @@ public class Product
 
     public Guid Id { get; }
     public string Name { get; }
-    public string Description { get; }
+    public string? Description { get; }
 }
