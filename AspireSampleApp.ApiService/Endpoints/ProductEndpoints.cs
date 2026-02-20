@@ -11,14 +11,18 @@ public static class ProductEndpoints
     {
         public void MapProductEndpoints()
         {
-            app.MapGet("/products", GetProductsAsync).WithName("GetProducts").Produces<IEnumerable<ProductDto>>(StatusCodes.Status200OK);
+            var productsApi = app.MapGroup("/api/products").WithTags("Products");
 
-            app.MapGet("/products/{id:guid}", GetProductByIdAsync)
+            productsApi.MapGet("/", GetProductsAsync).WithName("GetProducts").Produces<IEnumerable<ProductDto>>(StatusCodes.Status200OK);
+
+            productsApi
+                .MapGet("/{id:guid}", GetProductByIdAsync)
                 .WithName("GetProductById")
                 .Produces<ProductDto>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound);
 
-            app.MapPost("/products", CreateProductAsync)
+            productsApi
+                .MapPost("/", CreateProductAsync)
                 .WithName("CreateProduct")
                 .Accepts<CreateProductCommand>("application/json")
                 .Produces(StatusCodes.Status201Created);
@@ -48,6 +52,6 @@ public static class ProductEndpoints
     )
     {
         var createdProductId = await productService.CreateProductAsync(createProductCommand, cancellationToken);
-        return TypedResults.Created($"/products/{createdProductId}");
+        return TypedResults.Created($"/api/products/{createdProductId}");
     }
 }
