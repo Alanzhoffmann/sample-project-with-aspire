@@ -10,6 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspireSampleApp.ServiceDefaults\AspireSampleApp.ServiceDefaults.csproj" />
+    <ProjectReference Include="../AspireSampleApp.ServiceDefaults/AspireSampleApp.ServiceDefaults.csproj" />
   </ItemGroup>
 </Project>

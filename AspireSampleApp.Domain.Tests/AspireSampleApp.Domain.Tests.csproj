@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspireSampleApp.Domain\AspireSampleApp.Domain.csproj" />
+    <ProjectReference Include="../AspireSampleApp.Domain/AspireSampleApp.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

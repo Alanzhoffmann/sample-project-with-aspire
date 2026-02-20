@@ -17,7 +17,8 @@ public class ProductApiClient(HttpClient httpClient)
         var response = await httpClient.PostAsJsonAsync("/api/products/", request, cancellationToken);
         response.EnsureSuccessStatusCode();
         var location = response.Headers.Location?.ToString();
-        if (location is null) return null;
+        if (location is null)
+            return null;
         var lastSegment = location.TrimEnd('/').Split('/').Last();
         return Guid.TryParse(lastSegment, out var id) ? id : null;
     }

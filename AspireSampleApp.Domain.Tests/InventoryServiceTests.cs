@@ -27,10 +27,9 @@ public class InventoryServiceTests
 
         await _sut.CreateProductAsync(command, TestContext.Current.CancellationToken);
 
-        await _productRepository.Received(1).AddProductAsync(
-            Arg.Is<Product>(p => p.Name == command.Name && p.Description == command.Description),
-            Arg.Any<CancellationToken>()
-        );
+        await _productRepository
+            .Received(1)
+            .AddProductAsync(Arg.Is<Product>(p => p.Name == command.Name && p.Description == command.Description), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -39,10 +38,7 @@ public class InventoryServiceTests
         var command = new CreateProductCommand("Widget", null);
         Guid capturedId = Guid.Empty;
 
-        await _productRepository.AddProductAsync(
-            Arg.Do<Product>(p => capturedId = p.Id),
-            Arg.Any<CancellationToken>()
-        );
+        await _productRepository.AddProductAsync(Arg.Do<Product>(p => capturedId = p.Id), Arg.Any<CancellationToken>());
 
         var result = await _sut.CreateProductAsync(command, TestContext.Current.CancellationToken);
 
