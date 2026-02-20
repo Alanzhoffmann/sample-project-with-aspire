@@ -6,5 +6,6 @@
   <Project Path="AspireSampleApp.Infrastructure.Data/AspireSampleApp.Infrastructure.Data.csproj" />
   <Project Path="AspireSampleApp.Infrastructure.Migrations/AspireSampleApp.Infrastructure.Migrations.csproj" />
   <Project Path="AspireSampleApp.ServiceDefaults/AspireSampleApp.ServiceDefaults.csproj" />
+  <Project Path="AspireSampleApp.ThirdPartyService/AspireSampleApp.ThirdPartyService.csproj" />
   <Project Path="AspireSampleApp.Web/AspireSampleApp.Web.csproj" />
 </Solution>
