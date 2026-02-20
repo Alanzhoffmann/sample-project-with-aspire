@@ -26,6 +26,13 @@ else
 {
     <h1>@product.Name</h1>
 
+    @if (!product.HasThirdPartyData)
+    {
+        <div class="alert alert-warning" role="alert">
+            <strong>Inventory data unavailable.</strong> The third-party service did not return pricing or stock information for this product.
+        </div>
+    }
+
     <dl class="row">
         <dt class="col-sm-3">ID</dt>
         <dd class="col-sm-9">@product.Id</dd>
@@ -34,13 +41,10 @@ else
         <dd class="col-sm-9">@(product.Description ?? "-")</dd>
 
         <dt class="col-sm-3">Price</dt>
-        <dd class="col-sm-9">@product.Price.ToString("C")</dd>
+        <dd class="col-sm-9">@(product.HasThirdPartyData ? product.Price.ToString("C") : "N/A")</dd>
 
         <dt class="col-sm-3">Stock</dt>
-        <dd class="col-sm-9">@product.Stock</dd>
-
-        <dt class="col-sm-3">Third-party data</dt>
-        <dd class="col-sm-9">@(product.HasThirdPartyData ? "Yes" : "No")</dd>
+        <dd class="col-sm-9">@(product.HasThirdPartyData ? product.Stock.ToString() : "N/A")</dd>
     </dl>
 }
 

@@ -36,8 +36,26 @@ else
                 <tr>
                     <td>@product.Name</td>
                     <td>@(product.Description ?? "-")</td>
-                    <td>@product.Price.ToString("C")</td>
-                    <td>@product.Stock</td>
+                    <td>
+                        @if (product.HasThirdPartyData)
+                        {
+                            @product.Price.ToString("C")
+                        }
+                        else
+                        {
+                            <span class="text-warning" title="No inventory data from third-party service">N/A &#9888;</span>
+                        }
+                    </td>
+                    <td>
+                        @if (product.HasThirdPartyData)
+                        {
+                            @product.Stock
+                        }
+                        else
+                        {
+                            <span class="text-warning" title="No inventory data from third-party service">N/A &#9888;</span>
+                        }
+                    </td>
                     <td><a href="/products/@product.Id">View</a></td>
                 </tr>
             }
