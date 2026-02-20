@@ -2,6 +2,7 @@
   <Project Path="AspireSampleApp.ApiService/AspireSampleApp.ApiService.csproj" />
   <Project Path="AspireSampleApp.AppHost/AspireSampleApp.AppHost.csproj" />
   <Project Path="AspireSampleApp.Clients/AspireSampleApp.Clients.csproj" />
+  <Project Path="AspireSampleApp.Domain.Tests/AspireSampleApp.Domain.Tests.csproj" />
   <Project Path="AspireSampleApp.Domain/AspireSampleApp.Domain.csproj" />
   <Project Path="AspireSampleApp.Infrastructure.Data/AspireSampleApp.Infrastructure.Data.csproj" />
   <Project Path="AspireSampleApp.Infrastructure.Migrations/AspireSampleApp.Infrastructure.Migrations.csproj" />
