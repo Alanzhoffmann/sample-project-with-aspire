@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     {
         public void AddProductServices()
         {
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IInventoryService, InventoryService>();
             services.AddThirdPartyProductClient();
         }
     }

@@ -6,12 +6,12 @@ using AspireSampleApp.Domain.Entities;
 
 namespace AspireSampleApp.Domain.Services;
 
-public class ProductService : IProductService
+public class InventoryService : IInventoryService
 {
     private readonly IProductRepository _productRepository;
     private readonly IThirdPartyProductClient _thirdPartyProductClient;
 
-    public ProductService(IProductRepository productRepository, IThirdPartyProductClient thirdPartyProductClient)
+    public InventoryService(IProductRepository productRepository, IThirdPartyProductClient thirdPartyProductClient)
     {
         _productRepository = productRepository;
         _thirdPartyProductClient = thirdPartyProductClient;

@@ -29,29 +29,29 @@ public static class ProductEndpoints
         }
     }
 
-    private static async Task<IResult> GetProductsAsync([FromServices] IProductService productService, CancellationToken cancellationToken)
+    private static async Task<IResult> GetProductsAsync([FromServices] IInventoryService inventoryService, CancellationToken cancellationToken)
     {
-        var products = await productService.GetProductsAsync(cancellationToken);
+        var products = await inventoryService.GetProductsAsync(cancellationToken);
         return TypedResults.Ok(products);
     }
 
     private static async Task<IResult> GetProductByIdAsync(
         [FromRoute] Guid id,
-        [FromServices] IProductService productService,
+        [FromServices] IInventoryService inventoryService,
         CancellationToken cancellationToken
     )
     {
-        var product = await productService.GetProductAsync(id, cancellationToken);
+        var product = await inventoryService.GetProductAsync(id, cancellationToken);
         return product is not null ? TypedResults.Ok(product) : TypedResults.NotFound();
     }
 
     private static async Task<IResult> CreateProductAsync(
         [FromBody] CreateProductCommand createProductCommand,
-        [FromServices] IProductService productService,
+        [FromServices] IInventoryService inventoryService,
         CancellationToken cancellationToken
     )
     {
-        var createdProductId = await productService.CreateProductAsync(createProductCommand, cancellationToken);
+        var createdProductId = await inventoryService.CreateProductAsync(createProductCommand, cancellationToken);
         return TypedResults.Created($"/api/products/{createdProductId}");
     }
 }
