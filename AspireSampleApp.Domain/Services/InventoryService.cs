@@ -1,7 +1,7 @@
 using AspireSampleApp.Clients.Abstractions;
+using AspireSampleApp.Contracts.Commands;
+using AspireSampleApp.Contracts.DTOs;
 using AspireSampleApp.Domain.Abstractions;
-using AspireSampleApp.Domain.Commands;
-using AspireSampleApp.Domain.DTOs;
 using AspireSampleApp.Domain.Entities;
 
 namespace AspireSampleApp.Domain.Services;

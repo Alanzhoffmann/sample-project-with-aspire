@@ -1,3 +1,6 @@
+using AspireSampleApp.Contracts.Commands;
+using AspireSampleApp.Contracts.DTOs;
+
 namespace AspireSampleApp.Web;
 
 public class ProductApiClient(HttpClient httpClient)
@@ -12,7 +15,7 @@ public class ProductApiClient(HttpClient httpClient)
         return await httpClient.GetFromJsonAsync<ProductDto?>($"/api/products/{id}", cancellationToken);
     }
 
-    public async Task<Guid?> CreateProductAsync(CreateProductRequest request, CancellationToken cancellationToken = default)
+    public async Task<Guid?> CreateProductAsync(CreateProductCommand request, CancellationToken cancellationToken = default)
     {
         var response = await httpClient.PostAsJsonAsync("/api/products/", request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -23,15 +26,3 @@ public class ProductApiClient(HttpClient httpClient)
         return Guid.TryParse(lastSegment, out var id) ? id : null;
     }
 }
-
-public record ProductDto
-{
-    public Guid Id { get; init; }
-    public string Name { get; init; } = string.Empty;
-    public string? Description { get; init; }
-    public decimal Price { get; init; }
-    public int Stock { get; init; }
-    public bool HasThirdPartyData { get; init; }
-}
-
-public record CreateProductRequest(string Name, string? Description);

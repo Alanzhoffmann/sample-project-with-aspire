@@ -1,4 +1,4 @@
-namespace AspireSampleApp.Domain.DTOs;
+namespace AspireSampleApp.Contracts.DTOs;
 
 public record ProductDto
 {

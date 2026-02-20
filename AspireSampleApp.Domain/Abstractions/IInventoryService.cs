@@ -1,5 +1,5 @@
-using AspireSampleApp.Domain.Commands;
-using AspireSampleApp.Domain.DTOs;
+using AspireSampleApp.Contracts.Commands;
+using AspireSampleApp.Contracts.DTOs;
 
 namespace AspireSampleApp.Domain.Abstractions;
 

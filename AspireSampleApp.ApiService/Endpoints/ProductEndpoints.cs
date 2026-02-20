@@ -1,6 +1,6 @@
+using AspireSampleApp.Contracts.Commands;
+using AspireSampleApp.Contracts.DTOs;
 using AspireSampleApp.Domain.Abstractions;
-using AspireSampleApp.Domain.Commands;
-using AspireSampleApp.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspireSampleApp.ApiService.Endpoints;

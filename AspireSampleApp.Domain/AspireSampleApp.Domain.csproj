@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../AspireSampleApp.Clients/AspireSampleApp.Clients.csproj" />
+    <ProjectReference Include="../AspireSampleApp.Contracts/AspireSampleApp.Contracts.csproj" />
   </ItemGroup>
 </Project>
