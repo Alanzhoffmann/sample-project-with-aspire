@@ -1,0 +1,78 @@
+@page "/products/new"
+@rendermode InteractiveServer
+
+@inject ProductApiClient ProductApi
+@inject NavigationManager Navigation
+
+<PageTitle>Create Product</PageTitle>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    </ol>
+</nav>
+
+<h1>Create Product</h1>
+
+@if (errorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+}
+
+<EditForm Model="model" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="model.Name" />
+        <ValidationMessage For="() => model.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <InputTextArea id="description" class="form-control" rows="3" @bind-Value="model.Description" />
+        <ValidationMessage For="() => model.Description" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+        @(isSubmitting ? "Creating..." : "Create")
+    </button>
+    <a href="/products" class="btn btn-secondary ms-2">Cancel</a>
+</EditForm>
+
+@code {
+    private readonly CreateProductForm model = new();
+    private bool isSubmitting;
+    private string? errorMessage;
+
+    private async Task HandleSubmit()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            var createdId = await ProductApi.CreateProductAsync(new CreateProductRequest(model.Name, model.Description));
+            if (createdId is not null)
+            {
+                Navigation.NavigateTo($"/products/{createdId}");
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to create product: {ex.Message}";
+            isSubmitting = false;
+        }
+    }
+
+    private sealed class CreateProductForm
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Name is required.")]
+        [System.ComponentModel.DataAnnotations.MaxLength(100, ErrorMessage = "Name must be 100 characters or fewer.")]
+        public string Name { get; set; } = string.Empty;
+
+        [System.ComponentModel.DataAnnotations.MaxLength(500, ErrorMessage = "Description must be 500 characters or fewer.")]
+        public string? Description { get; set; }
+    }
+}
