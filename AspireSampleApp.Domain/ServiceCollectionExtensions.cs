@@ -1,3 +1,4 @@
+using AspireSampleApp.Clients;
 using AspireSampleApp.Domain.Abstractions;
 using AspireSampleApp.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ public static class ServiceCollectionExtensions
         public void AddProductServices()
         {
             services.AddScoped<IProductService, ProductService>();
+            services.AddThirdPartyProductClient();
         }
     }
 }

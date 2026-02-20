@@ -14,10 +14,11 @@ public static class ServiceCollectionExtensions
                 (sp, client) =>
                 {
                     var configuration = sp.GetRequiredService<IConfiguration>();
-                    var connectionString = configuration.GetConnectionString("ThirdPartyProductService");
+                    var connectionString = configuration.GetConnectionString("third-party");
                     if (string.IsNullOrEmpty(connectionString))
                     {
-                        throw new InvalidOperationException("Connection string for ThirdPartyProductService is not configured.");
+                        return;
+                        // throw new InvalidOperationException("Connection string for ThirdPartyProductService is not configured.");
                     }
 
                     client.BaseAddress = new Uri(connectionString);
