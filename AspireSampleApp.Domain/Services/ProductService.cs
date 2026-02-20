@@ -33,15 +33,16 @@ public class ProductService : IProductService
             return null;
         }
 
-        // TODO get third party product data and combine with product data from repository
+        var thirdPartyProduct = await _thirdPartyProductClient.GetProductAsync(productId, cancellationToken);
 
         return new ProductDto
         {
-            Id = product?.Id ?? Guid.Empty,
-            Name = product?.Name ?? string.Empty,
-            Description = product?.Description ?? string.Empty,
-            // Price = product?.Price ?? 0m,
-            // Stock = product?.Stock ?? 0
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            HasThirdPartyData = thirdPartyProduct is not null,
+            Price = thirdPartyProduct?.Price ?? 0m,
+            Stock = thirdPartyProduct?.Stock ?? 0,
         };
     }
 
@@ -49,15 +50,21 @@ public class ProductService : IProductService
     {
         var products = await _productRepository.GetProductsAsync(cancellationToken);
 
-        // TODO get third party product data and combine with product data from repository
+        // Ideally the third party integration would have an endpoint to fetch all products at once, but for simplicity I'm fetching them in parallel here
+        var fetchThirdPartyDataTasks = products.Select(product => _thirdPartyProductClient.GetProductAsync(product.Id, cancellationToken)).ToList();
+        var thirdPartyProducts = await Task.WhenAll(fetchThirdPartyDataTasks);
 
-        return products.Select(product => new ProductDto
-        {
-            Id = product?.Id ?? Guid.Empty,
-            Name = product?.Name ?? string.Empty,
-            Description = product?.Description ?? string.Empty,
-            // Price = product?.Price ?? 0m,
-            // Stock = product?.Stock ?? 0
-        });
+        return products.Select(
+            (product, index) =>
+                new ProductDto
+                {
+                    Id = product?.Id ?? Guid.Empty,
+                    Name = product?.Name ?? string.Empty,
+                    Description = product?.Description ?? string.Empty,
+                    HasThirdPartyData = thirdPartyProducts[index] is not null,
+                    Price = thirdPartyProducts[index]?.Price ?? 0m,
+                    Stock = thirdPartyProducts[index]?.Stock ?? 0,
+                }
+        );
     }
 }

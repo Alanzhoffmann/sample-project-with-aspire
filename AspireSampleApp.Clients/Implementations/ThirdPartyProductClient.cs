@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using AspireSampleApp.Clients.Abstractions;
 using AspireSampleApp.Clients.Models;
 
@@ -12,8 +13,8 @@ public class ThirdPartyProductClient : IThirdPartyProductClient
         _client = client;
     }
 
-    public Task<ThirdPartyProduct?> GetProductAsync(Guid productId, CancellationToken cancellationToken = default)
+    public async Task<ThirdPartyProduct?> GetProductAsync(Guid productId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await _client.GetFromJsonAsync<ThirdPartyProduct>($"products/{productId}", cancellationToken);
     }
 }
