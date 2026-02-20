@@ -18,6 +18,8 @@ builder.AddProductInfrastructure();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddValidation();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
