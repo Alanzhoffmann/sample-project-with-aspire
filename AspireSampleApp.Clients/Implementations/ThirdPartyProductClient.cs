@@ -15,6 +15,12 @@ public class ThirdPartyProductClient : IThirdPartyProductClient
 
     public async Task<ThirdPartyProduct?> GetProductAsync(Guid productId, CancellationToken cancellationToken = default)
     {
-        return await _client.GetFromJsonAsync<ThirdPartyProduct>($"products/{productId}", cancellationToken);
+        using var response = await _client.GetAsync($"products/{productId}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        return await response.Content.ReadFromJsonAsync<ThirdPartyProduct>(cancellationToken: cancellationToken);
     }
 }
