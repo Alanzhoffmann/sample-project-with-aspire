@@ -1,4 +1,5 @@
 using AspireSampleApp.Domain.Abstractions;
+using AspireSampleApp.Domain.Commands;
 using AspireSampleApp.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,11 @@ public static class ProductEndpoints
                 .WithName("GetProductById")
                 .Produces<ProductDto>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound);
+
+            app.MapPost("/products", CreateProductAsync)
+                .WithName("CreateProduct")
+                .Accepts<CreateProductCommand>("application/json")
+                .Produces(StatusCodes.Status201Created);
         }
     }
 
@@ -33,5 +39,15 @@ public static class ProductEndpoints
     {
         var product = await productService.GetProductAsync(id, cancellationToken);
         return product is not null ? TypedResults.Ok(product) : TypedResults.NotFound();
+    }
+
+    private static async Task<IResult> CreateProductAsync(
+        [FromBody] CreateProductCommand createProductCommand,
+        [FromServices] IProductService productService,
+        CancellationToken cancellationToken
+    )
+    {
+        var createdProductId = await productService.CreateProductAsync(createProductCommand, cancellationToken);
+        return TypedResults.Created($"/products/{createdProductId}");
     }
 }

@@ -1,6 +1,8 @@
 using AspireSampleApp.Clients.Abstractions;
 using AspireSampleApp.Domain.Abstractions;
+using AspireSampleApp.Domain.Commands;
 using AspireSampleApp.Domain.DTOs;
+using AspireSampleApp.Domain.Entities;
 
 namespace AspireSampleApp.Domain.Services;
 
@@ -13,6 +15,14 @@ public class ProductService : IProductService
     {
         _productRepository = productRepository;
         _thirdPartyProductClient = thirdPartyProductClient;
+    }
+
+    public async Task<Guid> CreateProductAsync(CreateProductCommand createProductCommand, CancellationToken cancellationToken = default)
+    {
+        var product = new Product(Guid.NewGuid(), createProductCommand.Name, createProductCommand.Description);
+        await _productRepository.AddProductAsync(product, cancellationToken);
+
+        return product.Id;
     }
 
     public async Task<ProductDto?> GetProductAsync(Guid productId, CancellationToken cancellationToken = default)
@@ -38,7 +48,9 @@ public class ProductService : IProductService
     public async Task<IEnumerable<ProductDto>> GetProductsAsync(CancellationToken cancellationToken = default)
     {
         var products = await _productRepository.GetProductsAsync(cancellationToken);
-        
+
+        // TODO get third party product data and combine with product data from repository
+
         return products.Select(product => new ProductDto
         {
             Id = product?.Id ?? Guid.Empty,

@@ -13,6 +13,12 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
+    public async Task AddProductAsync(Product product, CancellationToken cancellationToken = default)
+    {
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
     public async Task<Product?> GetProductAsync(Guid productId, CancellationToken cancellationToken = default) =>
         await _context.Products.FindAsync([productId], cancellationToken);
 
